@@ -1,0 +1,26 @@
+- job:
+    name: Jenkins_DSL
+    # TODO: Add url trigger
+    description: |
+        <p><b>Create all DSL defined Jenkins Views and Jobs</b></p>
+    node: master
+    properties:
+      - github:
+          url: https://github.com/akankshasingh19/jenkins-config-1.git/devops-workflow/jenkins-dsls/
+    scm:
+      - git:
+          repo: jenkins-dsls
+          url: https://github.com/akankshasingh19/jenkins-config-1.git
+          org: devops-workflow
+    builders:
+      - dsl:
+          targets: |
+              DSLs/views*.dsl
+              DSLs/jobs*.dsl
+    triggers:
+      - pollscm:
+          cron: '* * * * *'
+    wrappers:
+      - timestamps
+      - ansicolor:
+          colormap: "gnome-terminal"

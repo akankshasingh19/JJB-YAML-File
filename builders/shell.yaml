@@ -1,0 +1,25 @@
+- project:
+    name: Shell-Temp
+    jobs:
+        - 'shell-{num}':
+             num: 1
+- job-template:
+    disabled_var:
+    command: 'df'
+    type: freestyle
+
+    name: 'shell-{num}'
+    id: 'shell-{num}'
+    scm:
+      - shell_Template
+    builders:
+      - shell:
+          command: "make test"
+          unstable-return: 3
+- scm:
+    name: shell_Template
+    scm:
+      - git:
+         url: https://github.com/akankshasingh19/Sample_maven_pjt.git
+         branches:
+          - master

@@ -1,0 +1,20 @@
+- project:
+    name: artifactresolver-Temp
+    jobs:
+        - 'artifactresolver-{num}':
+             num: 1
+- job-template:
+    disabled_var:
+    command: 'df'
+    type: freestyle
+
+    name: 'artifactresolver-{num}'
+    id: 'artifactresolver-{num}'
+    builders:
+         - artifact-resolver:
+               target-directory: /target
+               artifacts:
+                   - group-id: commons-logging
+                     artifact-id: commons-logging
+                     version: "1.1"
+

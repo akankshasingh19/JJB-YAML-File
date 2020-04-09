@@ -1,0 +1,53 @@
+- project:
+    name: Hellogit-Temp
+    jobs:
+        - 'Hellogit-Temp-{num}':
+            num: 1
+
+- job-template:
+    disabled_var:
+    command: 'df'
+    type: freestyle
+
+    name: 'Hellogit-Temp-{num}'
+    id: 'Hellogit-Temp-{num}'
+    scm:
+      - Hellogit-Temp
+    builders:
+      - maven-target:
+            maven-version: Maven_home
+            pom: MavenHelloWorldProject/pom.xml
+            goals: clean compile package install test
+    publishers:
+      - git:
+          push-merge: true
+          push-only-if-success: false
+          force-push: true
+          tags:
+              - tag:
+                   remote: master
+                   name: tagname
+                   message: "some tag message"
+                   create-tag: true
+                   update-tag: true
+          branches:
+              - branch:
+                   remote: master
+                   name: "master"
+          notes:
+              - note:
+                   remote: master
+                   message: "some note to push"
+                   namespace: notenamespace
+                   replace-note: true
+- scm:
+    name: Hellogit-Temp
+    scm:
+      - git:
+         url: https://github.com/akankshasingh19/samplecode.git
+         branches:
+          - master
+
+
+
+

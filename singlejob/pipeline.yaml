@@ -1,0 +1,12 @@
+- job:
+    name: Pipeline-test-job
+    project-type: pipeline
+    sandbox: true
+    pipeline-scm:
+      scm:
+        - git:
+            url: https://github.com/akankshasingh19/Sample_maven_pjt.git
+            branches:
+               - origin/master
+      script-path: Jenkinsfile
+      lightweight-checkout: true

@@ -1,0 +1,26 @@
+- job:
+    name: Jenkins_Icons
+    description: |
+        Update icons from git repo and display all the available icons for use in jobs
+    node: master
+    properties:
+      - github:
+          url: https://github.com/akankshasingh19/jenkins-config-1.git/devops-workflow/jenkins-icons/
+    scm:
+      - git:
+          repo: jenkins-icons
+          url: https://github.com/akankshasingh19/jenkins-config-1.git
+          org: devops-workflow
+    builders:
+      - shell: ./update-icons.sh
+    publishers:
+      - html-publisher:
+          name: "Icons"
+          dir: "."
+          files: "icons.html"
+    triggers:
+      - pollscm:
+          cron: '* * * * *'
+    wrappers:
+      - timestamps
+

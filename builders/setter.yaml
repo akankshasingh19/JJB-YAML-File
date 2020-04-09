@@ -1,0 +1,29 @@
+- job-template:
+    parameters:
+      - string:
+            name: REQ_ID
+            description: "Enter ID to be taken as build name"
+    builders:
+      - shell: ls -l
+      - build-name-setter:
+            template: '${{REQ_ID}}'
+            macro: true
+    name: '{name}'
+    project-type: freestyle
+    defaults: global
+    description: 'Do not edit this job through the web!'
+    disabled: false
+    concurrent: true
+    quiet-period: 5
+    block-downstream: false
+    block-upstream: false
+    retry-count: 3
+    logrotate:
+      daysToKeep: 3
+      numToKeep: 20
+      artifactDaysToKeep: -1
+      artifactNumToKeep: -1
+- project:
+    name: AkankshaSingh/setter_builder
+    jobs:
+       - '{name}'

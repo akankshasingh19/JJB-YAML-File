@@ -1,0 +1,16 @@
+- job:
+    name: wrapperfullfile_job
+    wrapper:
+       name: default-wrapper
+       wrappers:
+         - timestamps
+         - timeout:
+             type: no-activity
+             timeout: 30
+             timeout-var: 'BUILD_TIMEOUT'
+             fail: true
+         - ansicolor:
+             colormap: xterm
+         - inject-passwords:
+             global: true
+             mask-password-params: true

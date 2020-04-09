@@ -1,0 +1,27 @@
+- job:
+    name: properties-test-job
+    project-type: pipeline
+    properties:
+      - github:
+            url: https://github.com/openstack-infra/jenkins-job-builder/
+      - build-discarder:
+            days-to-keep: 42
+            num-to-keep: 43
+            artifact-days-to-keep: 44
+            artifact-num-to-keep: 45
+      - copyartifact:
+          projects: Jenkins_DSL-*
+    metadata:
+        - string:
+            name: m2
+            value: bar
+            expose-to-env: true
+    sandbox: true
+    pipeline-scm:
+      scm:
+        - git:
+            url: https://github.com/akankshasingh19/Sample_maven_pjt.git
+            branches:
+               - origin/master
+      script-path: Jenkinsfile
+      lightweight-checkout: true

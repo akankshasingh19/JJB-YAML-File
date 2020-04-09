@@ -1,0 +1,33 @@
+- jobs:
+   name: flow_job
+   project-type: flow
+   dsl: |
+     build("Publish-JJB-Temp")
+     parallel (
+       { build("pipedemo") },
+       { build("Multiple-JJB-Temp-7") }
+     )
+- job-template:
+    name: '{name}-unit-tests'
+    project-type: flow
+    dsl: |
+      build("Publish-JJB-Temp")
+      parallel (
+        { build("pipedemo") },
+        { build("Multiple-JJB-Temp-7") }
+      )
+      build("testing")
+    builders:
+      - shell: unittest
+    publishers:
+      - email:
+        recipients: '{mail-to}'
+- job-group:
+    name: '{name}-tests'
+    jobs:
+      - '{name}-unit-tests':
+         mail-to: akanksha.ae.singh@accenture.com
+- project:
+    name: Publish-JJB-Temp
+    job:
+     - '{name}-tests'

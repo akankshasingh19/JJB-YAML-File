@@ -1,0 +1,45 @@
+- job:
+    name: Jenkins_Job_Builder
+    description: |
+        Job to build all other jobs with Jenkins Job Builder
+    node: master
+    parameters:
+      - string:
+          name: remote_job_name
+          default: "NO-JOB"
+          description: "Jenkins job to get job build definition from"
+      - choice:
+          name: jjb_cache
+          choices:
+            - use
+            - flush
+          description: "Can use to flush cache"
+    properties:
+      - github:
+          url: https://github.com/akankshasingh19/jenkins-config-1.git/devops-workflow/jenkins-job-builder-config/
+    scm:
+      - git:
+          repo: jenkins-job-builder-config
+          url: https://github.com/akankshasingh19/jenkins-config-1.git
+          org: devops-workflow
+          branches:
+           - master
+    builders:
+      - inject
+      - shell: |
+         #!/bin/sh
+         # This is a comment!
+         echo Hi Ann	# This is a comment, too!
+    publishers:
+      - claim-build
+      - trigger-parameterized-builds:
+        - project: Jenkins_DSL
+          condition: SUCCESS
+          trigger-with-no-params: true
+    triggers:
+      - pollscm:
+          cron: '* * * * *'
+    wrappers:
+      - timeout:
+          timeout: 30
+      - timestamps

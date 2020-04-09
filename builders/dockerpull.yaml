@@ -1,0 +1,17 @@
+- project:
+    name: dockerpull-Temp
+    jobs:
+        - 'dockerpull-{num}':
+             num: 1
+- job-template:
+    disabled_var:
+    command: 'df'
+    type: freestyle
+
+    name: 'dockerpull-{num}'
+    id: 'dockerpull-{num}'
+    builders:
+        - docker-pull-image:
+            image: annelizabethbabu/productcatalog-ms:productcatalog-ms
+            docker-registry-url: https://index.docker.io/v1/
+            credentials-id: 755c9d82-5a2d-41a3-b02b-14f42012e627 

@@ -1,0 +1,30 @@
+- job:
+    name: Trigger_downstream_job
+    project-type: freestyle
+    defaults: global
+    description: 'Do not edit this job through the web!'
+    disabled: false
+    concurrent: true
+    quiet-period: 5
+    block-downstream: false
+    block-upstream: false
+    retry-count: 3
+    triggers:
+        - reverse:
+              jobs:
+                  - 'Multiple-JJB-Temp-1'
+              result: 'SUCCESS'
+    logrotate:
+          daysToKeep: 3
+          numToKeep: 20
+          artifactDaysToKeep: -1
+          artifactNumToKeep: -1
+    publishers:
+        - downstream-ext:
+              projects:
+                  - Multiple-JJB-Temp-1
+                  - Multiple-JJB-Temp-2
+              only-on-scm-change: true
+              criteria: unstable
+              condition: equal
+

@@ -1,0 +1,25 @@
+# Jobs for configuring Jenkins itself - Not application build jobs
+
+- job:
+    name: Jenkins_Config
+    description: |
+        <p><b>Copy global Jenkins configurations files from repo and install plugins</b></p>
+    node: master
+    properties:
+      - github:
+          url: https://github.com/devops-workflow/jenkins-config/
+    scm:
+      - git:
+          repo: jenkins-config
+          url: https://github.com/akankshasingh19/jenkins-config-1.git
+          org: devops-workflow
+          branches:
+            - master
+    builders:
+      - shell: |
+            ./update-config.sh
+    triggers:
+      - pollscm:
+          cron: 'H/15 * * * *'
+    wrappers:
+      - timestamps

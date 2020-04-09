@@ -1,0 +1,21 @@
+- view:
+    name: MyListView
+    view-type: list
+    description: 'My List View'
+    filter-executors: true
+    filter-queue: true
+    job-name:
+        - Multiple-JJB-Temp-1
+        - Publish-JJB-Temp
+        - Github-JJB-Temp-1
+        - pipedemo
+    columns:
+        - status
+        - weather
+        - job
+        - last-success
+        - last-failure
+        - last-duration
+        - build-button
+    recurse: true
+    status-filter: true

@@ -1,0 +1,27 @@
+- project:
+    name: Ant-Temp
+    jobs:
+        - 'antbuild-{num}':
+             num: 1
+- job-template:
+    disabled_var:
+    command: 'df'
+    type: freestyle
+
+    name: 'antbuild-{num}'
+    id: 'antbuild-{num}'
+    scm:
+      - antbuild_Template
+    builders:
+      - ant:
+         targets: "compile test"
+         ant-name: "Ant"
+         buildfile: "build.xml"
+- scm:
+    name: antbuild_Template
+    scm:
+      - git:
+         url: https://github.com/akankshasingh19/Ant.git
+         branches:
+          - master
+

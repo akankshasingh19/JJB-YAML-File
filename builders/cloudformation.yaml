@@ -1,0 +1,13 @@
+- job:
+    name: 'AWS-CloudFormation-NC'
+    project-type: freestyle
+    builders:
+      - cloudformation:
+            - name: "EC2-Jenkins-jjb-NC"
+              description: "CloudFormation template for creating an ec2 instance from jenkins AWS CloudFormation Builder"
+              recipe: "https://akankshademoproject.s3.amazonaws.com/EC2-CloudFormation.json"
+              timeout: 3600
+              access-key: "$AWS_ACCESS_KEY"            
+              secret-key: "$AWS_SECRET_KEY"
+              region: us-east-1
+              sleep: 5

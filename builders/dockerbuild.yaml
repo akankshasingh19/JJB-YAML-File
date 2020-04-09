@@ -1,0 +1,36 @@
+- project:
+    name: docker-Temp
+    jobs:
+        - 'dockerbuild-{num}':
+             num: 1
+- job-template:
+    disabled_var:
+    command: 'df'
+    type: freestyle
+
+    name: 'dockerbuild-{num}'
+    id: 'dockerbuild-{num}'
+    scm:
+      - dockerbuild_Template
+    builders:
+        - docker-build-publish:
+            repo-name: 'annelizabethbabu/demorepo'
+            repo-tag: 'test-tag'
+            no-cache: true
+            no-force-pull: false
+            skip-build: false
+            skip-decorate: false
+            skip-latest: false
+            skip-tag: false
+            file-path: '/var/lib/jenkins/workspace/dockerbuild-1/Dockerfile'
+            create-fingerprint: true
+            registry:
+                url: 'https://index.docker.io/'
+                credentials-id: '755c9d82-5a2d-41a3-b02b-14f42012e627'
+- scm:
+    name: dockerbuild_Template
+    scm:
+      - git:
+         url: https://gitlab.com/annelizabethbabu/dockerbuild.git
+         branches:
+          - master

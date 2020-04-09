@@ -1,0 +1,5 @@
+- job:
+   name: nodejs_wrapper
+   wrappers:
+    - nodejs-installator:
+        name: "latest node"

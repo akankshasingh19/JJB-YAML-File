@@ -1,0 +1,7 @@
+- job:
+   name: sonar_wrapper
+   description: run sonar
+   wrappers:
+     - sonar:
+         install-name: Mssonar
+ 

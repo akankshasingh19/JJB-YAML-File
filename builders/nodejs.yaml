@@ -1,0 +1,16 @@
+- job:
+    name: Akanksha/nodejs
+    project-type: freestyle
+    defaults: global
+    description: 'Do not edit this job through the web!'
+    disabled: false
+    concurrent: true
+    quiet-period: 5
+    block-downstream: false
+    block-upstream: false
+    retry-count: 3
+    builders:
+      - nodejs:
+          script: |
+                console.log('build number ' + process.env['BUILD_NUMBER']);
+                console.log('current dir ' + process.cwd())
